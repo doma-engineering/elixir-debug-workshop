@@ -13,6 +13,8 @@ Some instructions during the workshops may not work, but we have checked that th
 
 We'll be installing an operator's installation (uses GUI, so do it locally) and a developer's installation (conventional way to install stuff)
 
+# Developer's installation
+
 ## Linux: Nix + direnv
 
 If you have nix with direnv installed, copy `flake.nix` and `.envrc` into your Git repository.
@@ -21,7 +23,12 @@ Now you can run `direnv allow`, and you're good to go.
 
 For VSCode integration, use `cab404/direnv` extension to guarantee that all the projects that use `direnv` will work with it.
 
-If you don't, you can use [my script to install everything you need](https://github.com/cognivore/nix-home). It's very opinionated and janky, but we use it everywhere in Doma.
+### If you don't have `nix`
+
+ 1. first [install it with the community installer](https://github.com/numtide/nix-unstable-installer).
+ 2. To get `direnv` and `home-manager`, you can use [my script to install everything you need](https://github.com/cognivore/nix-home).
+
+It's very opinionated and janky, but we use it everywhere in Doma.
 
 You'll have to edit some files with your user name.
 Please follow the instructions you'll see on the screen.
@@ -36,25 +43,35 @@ It's hacky, but it's ok.
 Many people use it, so if you don't feel like figuring out principled system like Nix, this can be your choice.
 
 It also uses purely binary distribution approach, so there's more portability.
+(Edit: it actually uses ad-hoc scripts to install things and some scripts compile from source, but since it doesn't manage dependencies, it truly defeats the purpose).
 
 To install Elixir with asdf, follow these steps:
+
+### Install packages
+
+```
+sudo apt install automake autoconf libncurses5-dev
+```
 
 ### Add the Elixir plugin for asdf:
 
 ```
 asdf plugin-add elixir
+asdf plugin-add erlang
 ```
 
 ### Install the desired version of Elixir:
 
 ```
-asdf install elixir 1.13.4
+asdf install erlang 24.3.4.7
+asdf install elixir 1.13.4-otp-24
 ```
 
 ### Set the global Elixir version:
 
 ```
-asdf global elixir 1.13.4
+asdf global erlang 24.3.4.7
+asdf global elixir 1.13.4-otp-24
 ```
 
 ### Verify that Elixir is correctly installed:
@@ -69,11 +86,13 @@ You should see Erlang/OTP XX, Elixir 1.13.4 in the output, where XX is the insta
 
 To upgrade to a newer version of Elixir, simply repeat the steps to install a new version and set it as the global version.
 
-For example, to upgrade to Elixir 1.14.0, run the following commands:
+For example, to upgrade to latest Elixir version, run the following commands:
 
 ```
-asdf install elixir 1.14.0
-asdf global elixir 1.14.0
+asdf install erlang latest
+asdf global erlang latest
+asdf install elixir latest
+asdf global elixir latest
 ```
 
 ### Uninstalling Elixir with asdf
@@ -93,3 +112,31 @@ asdf plugin-remove elixir
 ```
 
 This will remove the Elixir plugin and all installed Elixir versions from asdf.
+
+### If you don't have `asdf`.
+
+
+[Follow the official installation instructions](https://asdf-vm.com/guide/getting-started.html#_1-install-dependencies).
+
+
+# Operator's installation
+
+Operator's installation is required to be installed on the machine.
+
+## Nix + Direnv
+
+Use this flake.nix, write `direnv allow`. You're done.
+
+## Asdf
+
+### Install dependencies
+
+Instead of just automake, autoconf and ncurses, you'll also need libwxwidgets-gtk.
+
+```
+sudo apt install automake autoconf libncurses5-dev libwxgtk-webview3.0-gtk3-dev
+```
+
+### Later on
+
+Now follow asdf installation guidelines.
