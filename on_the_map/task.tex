@@ -1,0 +1,154 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[british]{babel}
+
+\title{%
+    On the map \\
+    \large a doma.dev test task. \\ v 1.1.1
+}
+\author{Pola \\ \texttt{<pola@doma.dev>} \and Jonn \\ \texttt{<jonn@doma.dev>}}
+\date{October 2022}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+Thank you for your interest in working at doma.dev and agreeing to complete this task!
+It is designed to take around an hour to complete.
+\\ \\
+You are given a project which has some functions which are yet not implemented. You have to fill in implementations of these functions following the specification given in this document.
+\\ \\
+Note that there may be bugs in the skeleton implementation. If you find an inconsistency, consider the specification correct and the implementation faulty.
+
+\section{The gist}
+
+Marketing department of the startup you work at wants to put your product \emph{on the map}. They tasked you with making a bot which makes bids on advertisement space on a high-traffic website called \texttt{zerohr.io}. This website runs an ad auction, which implements \emph{AdNonsense} protocol. Your goal is to place bids over the course of a month\footnote{Of course, we won't run your submission for a month, but rather we'll simulate the passage of time.} and beat your competitors around the world in the amount of click-through events your bot has generated for your startup's website. Good luck!
+
+\pagebreak
+
+\section{Treasury, click-through, and sales}
+
+\subsection{Treasury}
+The marketing budget your bot will use to make bids is \texttt{100,000} credits. AdNonsense provider won't let you spend more than that amount.
+
+\subsection{Click-through}
+Curious users visit your startup's website both naturally and thanks to the ads you place. Only the latter are considered to be click-through events.
+
+\subsection{Campaign sales}
+Just as organic traffic, click-through events may result in sales or in returning users, who will eventually make a purchase.
+Both sales due to click-through and sales of returning users, who discovered your startup by clicking on an ad you placed are considered "campaign sales".
+
+\section{AdNonsense protocol}
+
+AdNonsense works over HTTP and returns JSON. There is no API rate limiting in AdNonsense, however, since AdNonsense servers are operating under a constant load, availability may suffer from short outages\footnote{These outages are also simulated. Hopefully. \texttt{;)}}, especially if the load spikes.
+\\ \\
+Each output sends along an \texttt{X-Nonsense-Auth-Chal} header. It is an ASCII string that you have to sign with the secret key you used to register. This signature has to be then inserted into \texttt{X-Nonsense-Auth-Sig} encoded as url-safe base64 string.
+
+\pagebreak
+
+\subsection{POST /register}
+\begin{itemize}
+    \item { Input: \begin{itemize}
+        \item \texttt{pk}: the public key that you'll use for authentication.
+        \item \texttt{url}: the URL of your startup's website\footnote{Use \texttt{config/config.exs} to set this value, as it's going to be patched by the submission runner. See section 5.2.}.
+    \end{itemize}
+    \item { Output:
+
+        \begin{itemize}
+            \item { \texttt{status}:
+                \begin{itemize}
+                    \item HTTP 200: the registration was successful \texttt{|}
+                    \item HTTP 403: the public key is already registered
+                \end{itemize}
+            }
+        \end{itemize}}
+
+    }
+\end{itemize}
+
+\subsection{GET /items}
+\begin{itemize}
+    % \item { Input:
+    %     \begin{itemize}
+    %         \item {$ \emptyset $}
+    %     \end{itemize}
+    % }
+    \item { Output: [
+
+            \begin{itemize}
+                \item \texttt{id}: the id of the ad display slot.
+                \item \texttt{t0}: time when the ad will start showing.
+                \item \texttt{t1}: time when the ad will stop showing.
+                \item \texttt{topBid}: current top bid value.
+            \end{itemize}
+
+        ]
+    }
+\end{itemize}
+\subsection{GET /item/:id}
+\begin{itemize}
+    % \item { Input:
+
+    % }
+    \item { Output:
+        \begin{itemize}
+
+            \item \texttt{id}: the id of the ad display slot.
+            \item \texttt{t0}: time when the ad will start showing.
+            \item \texttt{t1}: time when the ad will stop showing.
+            \item { \texttt{bids}: [
+
+                \begin{itemize}
+                    \item \texttt{value}: bid value.
+                    \item \texttt{bidder}: public key of the party that made the bid.
+                \end{itemize}
+
+            ] }
+
+        \end{itemize}
+    }
+\end{itemize}
+\subsection{POST /bid/:id}
+\begin{itemize}
+    \item {Input:
+        \begin{itemize}
+
+            \item \texttt{id}: the id of the ad display slot you're bidding on.
+            \item \texttt{value}: the value of the bid you're placing.
+
+        \end{itemize}
+    }
+    \item {Output:
+        \begin{itemize}
+
+            \item \texttt{topBid}: current top bid value for this slot.
+            \item \texttt{bidder}: public key of the party that made the bid.
+
+        \end{itemize}
+    }
+\end{itemize}
+% TODO: Refunds
+% TODO: Hacking
+% TODO: Defending from hacking
+
+\pagebreak
+
+\section{Submissions}
+
+As mentioned in "the gist" section, the run of your submission will be ran in a sped-up simulated time. Your submission will be competing against a bunch of naive strategies (implemented by us) and against strategies, submitted by other candidates. To qualify for a middle-level position, you're expected to beat all the naive strategies. To qualify for a junior position, you're expected to produce a working submission that scores comparable to an average naive strategy.
+
+\subsection{Running the bots}
+
+The bots are ran on the same machine over several rounds. During each round, each competitor is assigned one of several possible latencies. Every submission will have a fair chance to run at each relative latency. The latency is simulated using the same facilities as the time, but isn't sped up proportionally. Thus, the latency values are close to the real world ones.
+
+\subsection{Technology of the bot runner}
+
+The bots are ran in \texttt{docker compose}, attached to a single docker network. The API server is registered in this network under name \texttt{zerohr\_io}. Thus, you can make requests to \texttt{http://zerohr\_io} and docker will correctly resolve those. The names of the containers that you submit will be replaced with a random, deterministic and unique names in the following files:
+\begin{itemize}
+    \item \texttt{*.yaml}
+    \item \texttt{config/config.exs}
+\end{itemize}
+
+\end{document}
