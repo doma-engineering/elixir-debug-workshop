@@ -1,0 +1,29 @@
+# Declarative computation
+
+The pinnacle of declarative computation is to set it up in one place and run it in another.
+It allows for composability and for great separation of concerns.
+This is a standard funcitonal programming design pattern and you'll see it everywhere, including Phoenix and Ecto.
+
+We'll learn it on example of Chaperon.
+
+```
+> LoadTestScenario.init(%Chaperon.Session{})
+{:ok,
+ %Chaperon.Session{
+   assigned: %{interval: 1000, rate: 15},
+   async_tasks: %{},
+   cancellation: nil,
+   config: %{},
+   cookies: [],
+   errors: %{},
+   id: nil,
+   interval_task: nil,
+   metrics: %{},
+   name: nil,
+   parent_id: nil,
+   parent_pid: nil,
+   results: %{},
+   scenario: nil,
+   timeout_at: nil
+ }}
+```
