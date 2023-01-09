@@ -131,3 +131,7 @@ sudo apt install automake autoconf libncurses5-dev libwxgtk-webview3.0-gtk3-dev
 ### Later on
 
 Now follow asdf installation guidelines.
+
+# Interactive Elixir shell
+
+We're gonna start with hanging out a bunch in `iex`, the Elixir shell.
