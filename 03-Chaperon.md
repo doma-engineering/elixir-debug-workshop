@@ -27,3 +27,20 @@ We'll learn it on example of Chaperon.
    timeout_at: nil
  }}
 ```
+
+## Run as a test!
+
+```
+Chaperon.run_load_test LoadTest, output: "metrics.json", format: :json
+x = %Chaperon.Action.HTTP{
+    body: "",
+    callback: nil,
+    decode: nil,
+    headers: %{"Accept" => "*/*", "User-Agent" => "chaperon"},
+    method: :get,
+    metrics_url: nil,
+    params: %{},
+    path: "/"
+}
+v(1).errors[x] |> length
+```

@@ -43,10 +43,7 @@ defmodule OnTheMap.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:dialyxir, "~> 1.2", only: [:dev], runtime: false},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
-      {:enacl, "~> 1.2.1"},
-      {:uptight, "~> 0.2.10-rc"},
-      # Chaperon, the load-generator
-      {:chaperon, "~> 0.3.1"}
+      {:uptight, "~> 0.2.10-rc"}
     ]
   end
 
