@@ -6,7 +6,7 @@ defmodule LoadTestScenario do
   use Chaperon.Scenario
 
   def init(session) do
-    session |> assign(rate: 5, interval: seconds(5)) |> ok
+    session |> assign(rate: 1000, interval: seconds(5)) |> ok
   end
 
   def run(session) do

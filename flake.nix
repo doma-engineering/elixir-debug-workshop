@@ -13,7 +13,7 @@
                     buildInputs = [
                         pkgs.elixir
                         pkgs.erlang
-                        pkgs.libsodium
+                        # pkgs.libsodium
                         pkgs.inotify-tools
                         pkgs.postgresql
                         pkgs.openssl
@@ -25,12 +25,8 @@
                         # Stuff that has to be externally configured
                         pkgs.gnupg
                         pkgs.darcs
-                        ## Stuff that isn't yet implemented
-                        # domaPakages.passveil
-                        ## Stuff that doesn't work
-                        # pkgs.yggdrasil
                     ];
-                    LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [ pkgs.libsodium ];
+                    # LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [ pkgs.libsodium ];
                 };
         };
 }

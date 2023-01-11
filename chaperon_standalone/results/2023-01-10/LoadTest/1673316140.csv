@@ -1,0 +1,3 @@
+session_action_name,total_count,max,mean,min,percentile_10.0,percentile_20.0,percentile_30.0,percentile_40.0,percentile_50.0,percentile_60.0,percentile_75.0,percentile_80.0,percentile_85.0,percentile_90.0,percentile_95.0,percentile_99.0,percentile_99.9,percentile_99.99,percentile_99.999
+0f114928-3260-4fff-a6fb-f1b3f2162bd3 LoadTestScenario root,1000,14983,10817,2560,8003,8003,8003,8003,8139,12983,13735,13983,14231,14479,14735,14935,14983,14983,14983
+0f114928-3260-4fff-a6fb-f1b3f2162bd3 LoadTestScenario get(http://localhost:8599/),1,2551,2551,2550,0,0,0,0,2551,2551,2551,2551,2551,2551,2551,2551,2551,2551,2551

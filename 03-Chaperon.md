@@ -44,3 +44,19 @@ x = %Chaperon.Action.HTTP{
 }
 v(1).errors[x] |> length
 ```
+
+# Test from another node
+
+```
+iex --cookie dangerZone420 --name "doa@172.17.158.204" -S mix
+```
+
+# In Erlang to launch observer:
+
+```
+net_kernel:start(['obs@172.17.144.1']).
+erlang:set_cookie('dangerZone420').
+net_adm:ping('doa@172.17.158.204').
+erlang:nodes().
+observer:start().
+```

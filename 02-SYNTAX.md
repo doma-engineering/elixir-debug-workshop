@@ -11,7 +11,7 @@ steps = [
     {2, "VHJ5IGRlZmluZSBzb21lIHRlcm0uIFdoaWNoIHRlcm0gZGlkIHlvdSBkZWZpbmU/"},
 ]
 
-defmodule(Tutorial, [do: (
+defmodule(Tutorial, [{:do, (
     for({step_id, msg} <- steps, [do:
         if(step_id != length(steps), [
             do:
@@ -19,13 +19,13 @@ defmodule(Tutorial, [do: (
                     IO.puts(unquote(Base.decode64!(msg)))
                 ]),
             else:
-                (def step_final(), [do:
+                (def step(), [do:
                     IO.puts(unquote(Base.decode64!(msg)))
                 ])
         ])
     ])
-    def step(_), [do: step_final()]
-)])
+    def step(_), [do: step()]
+)}])
 ```
 
 ## Defining a function in iex?
