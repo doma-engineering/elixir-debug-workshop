@@ -7,7 +7,7 @@ if Mix.env() == :dev do
     use Chaperon.Scenario
 
     def init(session) do
-      session |> assign(rate: 1_000, interval: seconds(4)) |> ok
+      session |> assign(rate: 2_000, interval: seconds(4)) |> ok
     end
 
     def run(session) do
@@ -18,7 +18,7 @@ if Mix.env() == :dev do
 
     def root(session) do
       session
-      |> get("/")
+      |> get("/phony")
     end
   end
 end

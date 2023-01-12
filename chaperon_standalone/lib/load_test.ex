@@ -12,6 +12,7 @@ if Mix.env() == :dev do
 
     def scenarios do
       [{LoadTestScenario, default_config()}]
+      [{Bidding, default_config()}]
     end
   end
 end

@@ -22,7 +22,9 @@ defmodule DayOne.MixProject do
   defp deps do
     [
       # Credo!
-      {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
+      # logger_file_backend v0.0.13
+      {:logger_file_backend, "~> 0.0.13"}
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
     ]

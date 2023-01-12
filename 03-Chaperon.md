@@ -31,7 +31,7 @@ We'll learn it on example of Chaperon.
 ## Run as a test!
 
 ```
-Chaperon.run_load_test LoadTest, output: "metrics.json", format: :json
+Chaperon.run_load_test LoadTest, output: "metrics", format: :json
 x = %Chaperon.Action.HTTP{
     body: "",
     callback: nil,
